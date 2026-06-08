@@ -1,0 +1,471 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Friendship Day 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+.loading-bar{
+width:350px;
+height:30px;
+background:rgba(255,255,255,.15);
+border-radius:50px;
+overflow:hidden;
+margin-top:25px;
+box-shadow:0 0 20px rgba(255,255,255,.2);
+}
+
+.loading-fill{
+width:0%;
+height:100%;
+background:linear-gradient(
+90deg,
+#38bdf8,
+#60a5fa,
+#93c5fd
+);
+border-radius:50px;
+}
+
+#loadingPercent{
+margin-top:20px;
+font-size:2rem;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+min-height:100vh;
+overflow:hidden;
+color:white;
+}
+
+.page{
+display:none;
+width:100%;
+height:100vh;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.active{
+display:flex;
+}
+
+h1{
+font-size:3rem;
+margin-bottom:20px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px #60a5fa; }
+to{ text-shadow:0 0 30px #93c5fd; }
+}
+
+button{
+padding:14px 30px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+font-size:18px;
+margin:10px;
+background:#60a5fa;
+color:white;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+}
+
+input{
+padding:15px;
+width:280px;
+border:none;
+border-radius:12px;
+outline:none;
+font-size:16px;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+padding:25px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+max-width:700px;
+}
+
+.gift{
+font-size:120px;
+cursor:pointer;
+animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+50%{
+transform:translateY(-15px);
+}
+}
+
+.letter{
+display:none;
+margin-top:20px;
+background:rgba(255,255,255,.1);
+padding:20px;
+border-radius:15px;
+line-height:1.8;
+}
+
+.bar{
+width:300px;
+height:25px;
+background:#1e293b;
+border-radius:20px;
+overflow:hidden;
+margin:20px auto;
+}
+
+.fill{
+width:0;
+height:100%;
+background:#22c55e;
+transition:1s;
+}
+
+.heart{
+position:absolute;
+bottom:-50px;
+font-size:20px;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+from{
+transform:translateY(0);
+opacity:1;
+}
+to{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+
+.small{
+font-size:1.2rem;
+margin-bottom:20px;
+}
+</style>
+</head>
+<body>
+
+<div id="loadingPage" class="page active">
+
+    <h1>💙 Friendship Power Loading... 💙</h1>
+
+    <div class="loading-bar">
+        <div class="loading-fill" id="loadingFill"></div>
+    </div>
+
+    <h2 id="loadingPercent">0%</h2>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page" id="welcomePage">
+<h1>💙 Happy Friendship Day 💙</h1>
+<p class="small">A special surprise is waiting for you...</p>
+<button onclick="startSurprise()">🎁 Click To Surprise</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="namePage">
+<div class="card">
+<h2>😊 Enter Your Name</h2>
+<br>
+<input id="userName" placeholder="Your Name">
+<br><br>
+<button onclick="submitName()">Go ➜</button>
+</div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="questionPage">
+<div class="card">
+<h2 id="friendQuestion"></h2>
+<br>
+<p id="questionText">Choose wisely 😇</p>
+<br>
+<button onclick="clickYes()">💙 Yes</button>
+<button id="noBtn" onclick="clickNo()">🙈 No</button>
+</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="tcPage">
+<div class="card">
+<h2>📜 Friendship Terms & Conditions</h2>
+<br>
+
+<p>
+✅ Must share memes<br>
+✅ Must not disappear for months<br>
+✅ Must support each other<br>
+✅ Must create good memories<br>
+✅ Must stay awesome 😎
+</p>
+
+<br>
+
+<button onclick="acceptTC()">I Accept 💙</button>
+</div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="giftPage">
+
+<h1>🎁 Friendship Gift</h1>
+
+<div class="gift" id="gift" onclick="openGift()">
+🎁
+</div>
+
+<div id="giftContent" style="display:none;">
+
+<div class="card">
+
+<h2>💙 Friendship Quote</h2>
+
+<p id="quoteBox" style="margin-top:15px;"></p>
+
+<br>
+
+<button onclick="openLetter()">💌 Secret Letter</button>
+
+<div class="letter" id="letter">
+
+Dear Friend,
+
+<br><br>
+
+Thank you for every smile, laugh and memory.
+
+A true friend is one of life's greatest blessings.
+
+Happy Friendship Day 💙✨
+
+</div>
+
+<br>
+
+<h2>📊 Friendship Meter</h2>
+
+<button onclick="checkMeter()">Check Meter</button>
+
+<div id="meterText"></div>
+
+<div class="bar">
+<div class="fill" id="meterBar"></div>
+</div>
+
+<br>
+
+<button onclick="finishJourney()">
+✨ Continue
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="finalPage">
+
+<h1>🎉 Friendship Accepted 🎉</h1>
+
+<h2 id="finalName"></h2>
+
+<br>
+
+<p style="font-size:1.2rem;">
+Thank you for accepting this friendship.
+May your days always be filled with happiness,
+memories and good friends. 💙
+</p>
+
+<br>
+
+<h3>Made with ❤️ by Nishant</h3>
+
+</div>
+
+<script>
+
+let userName="";
+let noCount=0;
+
+function showPage(id){
+document.querySelectorAll(".page").forEach(page=>{
+page.classList.remove("active");
+});
+document.getElementById(id).classList.add("active");
+}
+
+function startSurprise(){
+showPage("namePage");
+}
+
+function submitName(){
+
+let name=document.getElementById("userName").value.trim();
+
+if(name===""){
+alert("Please enter your name 😊");
+return;
+}
+
+userName=name;
+
+document.getElementById("friendQuestion").innerHTML=
+`💙 ${userName}, do you want to be my friend?`;
+
+showPage("questionPage");
+}
+
+function clickNo(){
+
+noCount++;
+
+if(noCount===1){
+
+document.getElementById("questionText").innerHTML=
+"🥺 Are you really sure?";
+
+}else{
+
+document.getElementById("questionText").innerHTML=
+"😆 Nice try! Only YES is available now.";
+
+document.getElementById("noBtn").style.display="none";
+}
+}
+
+function clickYes(){
+showPage("tcPage");
+}
+
+function acceptTC(){
+showPage("giftPage");
+}
+
+function openGift(){
+
+const quotes=[
+"💙 A true friend is the greatest treasure.",
+"✨ Friendship doubles joy and halves sorrow.",
+"🌟 Good friends make every moment special.",
+"🤝 Friendship is one heart in two bodies.",
+"💙 Real friends stay when everyone leaves."
+];
+
+let quote=
+quotes[Math.floor(Math.random()*quotes.length)];
+
+document.getElementById("quoteBox").innerHTML=quote;
+
+document.getElementById("gift").style.display="none";
+
+document.getElementById("giftContent").style.display="block";
+}
+
+function openLetter(){
+document.getElementById("letter").style.display="block";
+}
+
+function checkMeter(){
+
+let score=Math.floor(Math.random()*11)+90;
+
+document.getElementById("meterText").innerHTML=
+`${userName}'s Friendship Power : ${score}% 💙`;
+
+document.getElementById("meterBar").style.width=
+score+"%";
+}
+
+function finishJourney(){
+
+document.getElementById("finalName").innerHTML=
+`Thank You, ${userName} 💙`;
+
+showPage("finalPage");
+}
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML=["💙","✨","⭐","💖"]
+[Math.floor(Math.random()*4)];
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(15+Math.random()*25)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+},500);
+let progress = 0;
+
+const loader = setInterval(() => {
+
+    progress++;
+
+    document.getElementById("loadingFill").style.width =
+        progress + "%";
+
+    document.getElementById("loadingPercent").innerHTML =
+        progress + "%";
+
+    if(progress >= 100){
+
+        clearInterval(loader);
+
+        setTimeout(() => {
+
+            document.getElementById("loadingPage")
+                .classList.remove("active");
+
+            document.getElementById("welcomePage")
+                .classList.add("active");
+
+        }, 500);
+
+    }
+
+}, 35);
+</script>
+
+</body>
+</html>
+```
